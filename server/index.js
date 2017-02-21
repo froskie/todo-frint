@@ -14,6 +14,12 @@ app.use(bodyParser.urlencoded({ extended:false }));
 import todosRouter from './modules/tasks/router';
 app.use('/tasks', todosRouter);
 
+// render static page
+app.use(Express.static(__dirname + '/../public'));
+app.get('/', function(req, res) {
+  res.sendFile('index.html');
+});
+
 // initialize the server
 app.listen(9001, () => {
   process.stdout.write('the server is available on http://localhost:9001/\n');

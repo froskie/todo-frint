@@ -1,8 +1,11 @@
 import { createApp } from 'frint';
 
-import RootComponent from '../component/Root'; // we still need to write this file
+import RootComponent from '../component/Root';
+import RootReducer from '../reducers';
 
 export default createApp({
-  name: 'TODO',
-  component: RootComponent
+  name: 'ToDo',
+  component: RootComponent,
+  initialState: {},
+  reducer: RootReducer,
 });
