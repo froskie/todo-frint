@@ -6,10 +6,15 @@ import * as actions from '../actions/todos';
 const Form =  createComponent({
   handleSubmit(e) {
     e.preventDefault();
-    this.props.addTodo({
-      title: this.refs.title.value,
-      description: this.refs.description.value
-    });
+    const title = this.refs.title;
+    const description = this.refs.description;
+    // first add the todo
+    this.props.addTodo({ title: title.value, description: description.value });
+    // clear the fields
+    title.value = null;
+    description.value = null;
+    // focus back on title
+    title.focus();
   },
   render() {
     return (
