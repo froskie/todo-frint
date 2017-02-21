@@ -6,6 +6,10 @@ export function added(data) {
   return { type: actions.ADDED_TODO, data };
 }
 
+export function updated(data) {
+  return { type: actions.UPDATED_TODO, data };
+}
+
 export function removed(id) {
   return { type: actions.REMOVED_TODO, data: id };
 }
@@ -25,6 +29,27 @@ export function add(data) {
     .then(res => res.json())
     .then(res => { dispatch(added(res)); });
   };
+}
+
+export function update(data, id) {
+  return dispatch => {
+    fetch(BASE_URL + '/tasks/' + id, {
+      method: 'PUT',
+      body: JSON.stringify({
+        title: data.title,
+        description: data.description
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+    .then(res => res.json())
+    .then(res => { dispatch(updated(res)); });
+  };
+}
+
+export function edit(id) {
+  return { type: actions.EDIT_TODO, data: id };
 }
 
 export function remove(id) {

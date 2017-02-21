@@ -1,3 +1,4 @@
+export const EDIT_TODO = 'EDIT_TODO';
 export const ADD_TODO = 'ADD_TODO';
 export const ADDED_TODO = 'ADDED_TODO';
 export const LOADED_TODOS = 'LOADED_TODOS';
