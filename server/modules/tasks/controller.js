@@ -6,17 +6,16 @@ export function list(req, res) {
 
 export function load(req, res) {
   const task = model.get(req.params.id);
-  if (!task) {
-    res.status(404).json({ error: true, message: 'not found' });
-    return;
-  }
-  res.status(200).json(model.find());
+  // dont proceed with invalid task
+  task
+  ? res.status(404).json({ error: true, message: 'not found' })
+  : res.status(200).json(model.find());
 }
 
 export function save(req, res) {
   const data = req.body;
-  console.log(data);
   
+  // persist task data
   const task = model.insert({
     title: data.title,
     description: data.description
@@ -26,7 +25,23 @@ export function save(req, res) {
 }
 
 export function update(req, res) {
+  const id = req.params.id;
 
+  // dont proceed with invalid task
+  const task = model.get(id);
+  if (!task) {
+    res.status(404).json({ error: true, message: 'not found' });
+    return;
+  }
+
+  // update task data
+  const data = req.body;
+  task.title = data.title;
+  task.description = data.description;
+
+  // persist and return
+  model.update(task);
+  res.status(200).json(task);
 }
 
 export function remove(req, res) {
