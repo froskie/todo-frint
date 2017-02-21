@@ -17,7 +17,7 @@ export function save(req, res) {
   
   // persist task data and return
   const task = model.insert({ title: data.title, description: data.description });
-  res.status(200).json(task);
+  res.status(201).json(task);
 }
 
 export function update(req, res) {
@@ -37,7 +37,7 @@ export function update(req, res) {
 
   // persist and return
   model.update(task);
-  res.status(200).json(task);
+  res.status(201).json(task);
 }
 
 export function remove(req, res) {
