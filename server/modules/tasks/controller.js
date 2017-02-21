@@ -8,19 +8,15 @@ export function load(req, res) {
   const task = model.get(req.params.id);
   // dont proceed with invalid task
   task
-  ? res.status(404).json({ error: true, message: 'not found' })
-  : res.status(200).json(model.find());
+  ? res.status(200).json(task)
+  : res.status(404).json({ error: true, message: 'not found' });
 }
 
 export function save(req, res) {
   const data = req.body;
   
-  // persist task data
-  const task = model.insert({
-    title: data.title,
-    description: data.description
-  });
-  
+  // persist task data and return
+  const task = model.insert({ title: data.title, description: data.description });
   res.status(200).json(task);
 }
 
@@ -45,5 +41,11 @@ export function update(req, res) {
 }
 
 export function remove(req, res) {
+  const id = req.params.id;
 
+  // dont proceed with invalid task
+  const task = model.get(id);
+  if (task) { model.remove(task); }
+
+  res.status(200).json({});
 }
